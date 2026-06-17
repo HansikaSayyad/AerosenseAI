@@ -58,6 +58,13 @@ app.add_middleware(
 
 
 # ─────────────────────────────────────────
+# REGISTER ALL ROUTES
+# ─────────────────────────────────────────
+from backend.api.v1 import api_router
+app.include_router(api_router)
+
+
+# ─────────────────────────────────────────
 # HEALTH CHECK ROUTE
 # ─────────────────────────────────────────
 @app.get("/", tags=["Health"])
@@ -96,9 +103,9 @@ async def test_agents(city: str = "Hyderabad"):
     )
 
     # Run agent pipeline
-    collector    = DataCollectionAgent()
-    analyzer     = AnalysisAgent()
-    recommender  = RecommendationAgent()
+    collector   = DataCollectionAgent()
+    analyzer    = AnalysisAgent()
+    recommender = RecommendationAgent()
 
     result1 = collector.run({"city": city})
     if not result1.success:
